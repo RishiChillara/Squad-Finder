@@ -1,2 +1,0 @@
-# LaunchPad
-LaunchPad Project Repo
