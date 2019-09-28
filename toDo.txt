@@ -1,1 +1,35 @@
+*NOTE: When you start working on ANYTHING, move the story to the appropriate field*
 
+Server Side:
+  Story:
+    Basic Server
+    User Data Base
+    User Management Functions
+    Account Functionality
+    Firebase Integration
+    WebSocket Linking
+    Event Management
+
+  In Progress:
+
+  Testing:
+
+  Bugs:
+
+  Released:
+
+Client Side:
+  Story:
+    Basic Client
+    Data Polling
+    Management Functions
+    WebSocket Linking
+    Event Management
+
+  In Progress:
+
+  Testing:
+
+  Bugs:
+
+  Released:
