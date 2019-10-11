@@ -4,8 +4,12 @@ Server Side:
   Story:
     Basic Server
     User Data Base
-    User Management Functions
     Account Functionality
+    User Management Functions
+    Circle Functionality
+    Circle Management Functions
+    Event Creation
+    Event Management Functions
     Firebase Integration
     WebSocket Linking
     Event Management
@@ -22,7 +26,9 @@ Client Side:
   Story:
     Basic Client
     Data Polling
-    Management Functions
+    User Management Functions
+    Circle Management Functions
+    Event Adding Functions
     WebSocket Linking
     Event Management
 
