@@ -21,6 +21,9 @@
 				<a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
 			  </li>
 			  <li class="logged-in">
+					<a href="#" class="grey-text modal-trigger" data-target="modal-addcircles">Add Circles</a>
+				</li>
+			  <li class="logged-in">
 				<a href="#" class="grey-text" id="logout">Logout</a>
 			  </li>
 			  <li class="logged-out">
@@ -69,6 +72,26 @@
 		  </form>
 		</div>
 	  </div>
+
+	  <!-- Need to create an adaptable text list that allows you to add more members and with like a plus buttom-->
+	  <!-- need to change ID's for most of this shit-->
+	  <!-- Add Cicles MODAL -->
+	  <div id="modal-addcircles" class="modal">
+			<div class="modal-content">
+			  <h4>Create a Circle and Add Members</h4><br />
+			  <form id="login-form">
+				<div class="input-field">
+				  <input type="email" id="circlename" required />
+				  <label for="login-email">Circle Name</label>
+				</div>
+				<div class="input-field">
+				  <input type="password" id="login-password" required />
+				  <label for="login-password">Your password</label>
+				</div>
+				<button class="btn yellow darken-2 z-depth-0">Login</button>
+			  </form>
+			</div>
+		  </div>
 	
 	  <!-- ACCOUNT MODAL -->
 	  <div id="modal-account" class="modal">
@@ -107,22 +130,37 @@
 	<script defer src="https://www.gstatic.com/firebasejs/7.2.1/firebase-auth.js"></script>
 	<script defer src="https://www.gstatic.com/firebasejs/7.2.1/firebase-firestore.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-analytics.js"></script>
-	<script defer src="./init-firebase.js"></script>
+
 
 	<script>
-		// make auth and firestore references
-		const auth = firebase.auth();
-		const db = firebase.firestore();
+	// Your web app's Firebase configuration
+	var firebaseConfig = {
+		apiKey: "AIzaSyAbPEhc_8YVOZwB8YuPRbIx1IaWofB7HUI",
+		authDomain: "launchpad-f189d.firebaseapp.com",
+		databaseURL: "https://launchpad-f189d.firebaseio.com",
+		projectId: "launchpad-f189d",
+		storageBucket: "launchpad-f189d.appspot.com",
+		messagingSenderId: "840926745535",
+		appId: "1:840926745535:web:02565c1b66eb6bc530470a",
+		measurementId: "G-7T9YSWLBJC"
+	};
+	
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+	firebase.analytics();
 
-		// update firestore settings
-		db.settings({ timestampsInSnapshots: true });
-		
-	  </script>
+	// make auth and firestore references
+	const auth = firebase.auth();
+	const db = firebase.firestore();
+
+	// update firestore settings
+	db.settings({ timestampsInSnapshots: true });
+	</script>
 
 	  <!-- Compiled and minified JavaScript -->
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	  <script src="/auth.js"></script>
-	  <script src="/index.js"></script>
-	  <script src="/client.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script src="/auth.js"></script>
+		<script src="/index.js"></script>
+		<script src="/client.js"></script>
 	</body>
 	</html>
