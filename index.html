@@ -68,7 +68,7 @@
 			  <input type="password" id="login-password" required />
 			  <label for="login-password">Your password</label>
 			</div>
-			<button class="btn yellow darken-2 z-depth-0">Login</button>
+			<button onclick = "login(event)" class="btn yellow darken-2 z-depth-0">Login</button>
 		  </form>
 		</div>
 	  </div>
@@ -120,16 +120,37 @@
 			const circleName = addForm['circlename'].value;
 			const userstooAdd = addForm['users-add'].value;
 			var data = {circle: circleName, usersAdd: userstooAdd}
-		  	socket.emit('createCircleClicked',data);
+			socket.emit('createCircleClicked',data);
+		  	
 		}
 
 		//Client Confirmaiton on Add circle
 		socket.on('createCircleSuccess', function() {
-			console.log("hello there")
+			console.log("Circle Made")
 			const addForm = document.querySelector('#addCircles-form');
 			const modal = document.querySelector('#modal-addcircles');
     		M.Modal.getInstance(modal).close();
     		addForm.reset();
+		})
+
+		//send message on loginUser
+		function login(e){
+			e.preventDefault();
+			const loginForm = document.querySelector('#login-form');
+			const emailVal= loginForm['login-email'].value;
+			const passwordVal = loginForm['login-password'].value;
+			var data = {email: emailVal, password: passwordVal}
+			
+			socket.emit('loginUser',data);
+		}
+
+		//Client Confirmaiton on LoginUser
+		socket.on('userLoginSuccess', function() {
+			console.log("Login Success")
+			const loginForm = document.querySelector('#login-form');
+			const modal = document.querySelector('#modal-login');
+    		M.Modal.getInstance(modal).close();
+    		loginForm.reset();
 		})
 
 

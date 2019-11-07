@@ -30,9 +30,7 @@ firebase.initializeApp({
 
 
 var db = firebase.database();
-
 var ref = db.ref("restricted_access/secret_document");
-
 ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
@@ -46,14 +44,14 @@ io.on('connection', function(client) {
 
       var usersRef = ref.child("users");
 
-
-        var randomID = '_' + Math.random().toString(36).substr(2, 9);
-		var userArr = data.usersAdd.split(',');
-		var users = JSON.stringify(userArr);
+      var randomID = '_' + Math.random().toString(36).substr(2, 9);
+		  var userArr = data.usersAdd.split(',');
+		  var users = JSON.stringify(userArr);
 	
 	    usersRef.set({
-          randomID: {
+        randomID: {
           circle_name: data.circle,
+          // need to make each user probs an independent node
           circle_partipants: users
         }
     });
@@ -61,9 +59,19 @@ io.on('connection', function(client) {
         client.emit('createCircleSuccess')
 
     });
+
+    client.on('loginUser', function(data) {
+
+    	firebase.auth().signInWithEmailAndPassword(email, password).then((cred) => {
+		console.log(cred.user);
+
+		client.emit('userLoginSuccess')
+
+
+		
+	});
+	
     
 });
 
-/** */
-
-
+});
