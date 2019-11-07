@@ -18,17 +18,21 @@ app.get('/', function(req, res,next) {
 
 
 var admin = require("firebase-admin");
+var firebase = require('firebase');
+
 
 var serviceAccount = require("./serviceAccountKey.json");
 
-admin.initializeApp({
+firebase.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://launchpad-f189d.firebaseio.com"
 });
 
 
 var db = firebase.database();
-var ref = db.ref("Circles");
+
+var ref = db.ref("restricted_access/secret_document");
+
 ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
@@ -40,11 +44,14 @@ io.on('connection', function(client) {
 
     client.on('createCircleClicked', function(data) {
 
+      var usersRef = ref.child("users");
+
+
         var randomID = '_' + Math.random().toString(36).substr(2, 9);
 		var userArr = data.usersAdd.split(',');
 		var users = JSON.stringify(userArr);
 	
-	ref.set({
+	    usersRef.set({
           randomID: {
           circle_name: data.circle,
           circle_partipants: users
@@ -56,5 +63,7 @@ io.on('connection', function(client) {
     });
     
 });
+
+/** */
 
 
