@@ -2,19 +2,21 @@
 
 Server Side:
   Story:
-    Basic Server
-    User Data Base
-    Account Functionality
+    
     User Management Functions
     Circle Functionality
     Circle Management Functions
     Event Creation
     Event Management Functions
-    Firebase Integration
-    WebSocket Linking
+    
     Event Management
 
   In Progress:
+  Firebase Integration
+  WebSocket Linking
+  Basic Server
+  User Data Base
+  Account Functionality
 
   Testing:
 
