@@ -9,7 +9,7 @@
 	  <title>LaunchPad</title>
 	</head>
 	<body class="grey lighten-3">
-	
+
 	  <!-- NAVBAR -->
 	  <nav class="z-depth-0 grey lighten-4">
 		<div class="nav-wrapper container">
@@ -36,7 +36,7 @@
 		  </ul>
 		</div>
 	  </nav>
-	
+
 	  <!-- SIGN UP MODAL -->
 	  <div id="modal-signup" class="modal">
 		<div class="modal-content">
@@ -54,7 +54,7 @@
 		  </form>
 		</div>
 	  </div>
-	
+
 	  <!-- LOGIN MODAL -->
 	  <div id="modal-login" class="modal">
 		<div class="modal-content">
@@ -92,8 +92,8 @@
 			</div>
 		  </div>
 
-	
-	
+
+
 	  <!-- ACCOUNT MODAL -->
 
 
@@ -104,14 +104,14 @@
 		  <div class="account-extras"></div>
 		</div>
 	  </div>
-	
-	
+
+
 <!-----------SOCKETS------------------------------------------------------------------------------------------------------------>
 
 	  <script src="/socket.io/socket.io.js"></script>
 	  <script>
 		var socket = io.connect();
-		
+
 
 		//send message on add Circle
 		function addCircles(e){
@@ -130,13 +130,13 @@
 			const modal = document.querySelector('#modal-addcircles');
     		M.Modal.getInstance(modal).close();
     		addForm.reset();
-		}) 
+		})
 
-	
+
 
 	</script>
-	
-	 
+
+
 	<!----FIREBASE------------------------------------------------------------------------------------------------------------>
 
 
@@ -158,7 +158,7 @@
 		appId: "1:840926745535:web:02565c1b66eb6bc530470a",
 		measurementId: "G-7T9YSWLBJC"
 	};
-	
+
 	// Initialize Firebase
 	firebase.initializeApp(firebaseConfig);
 	firebase.analytics();
@@ -168,11 +168,11 @@
 	</script>
 
 <!-------- Compiled and minified JavaScript ----------------------------------------------------------------------------------->
-		
+
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script src="/auth.js"></script>
 		<script src="/index.js"></script>
-		
+
 
 
 	</body>
