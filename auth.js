@@ -43,5 +43,4 @@ loginForm.addEventListener('submit', (e) => {
     M.Modal.getInstance(modal).close();
     loginForm.reset();
   });
-
 });

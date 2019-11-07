@@ -68,7 +68,7 @@
 			  <input type="password" id="login-password" required />
 			  <label for="login-password">Your password</label>
 			</div>
-			<button onclick = "login(event)" class="btn yellow darken-2 z-depth-0">Login</button>
+			<button class="btn yellow darken-2 z-depth-0">Login</button>
 		  </form>
 		</div>
 	  </div>
@@ -112,6 +112,20 @@
 	  <script>
 		var socket = io.connect();
 
+		var localUser = {username: null};
+
+		function login(username) {
+			socket.emit('login', username);
+			localUser.username = username;
+
+			socket.on(String(localUser.username), function(serverReturn) {
+				console.log(serverReturn);
+
+				if (!serverReturn){
+					localUser.username = null;
+				}
+			});
+		}
 
 		//send message on add Circle
 		function addCircles(e){
@@ -121,7 +135,6 @@
 			const userstooAdd = addForm['users-add'].value;
 			var data = {circle: circleName, usersAdd: userstooAdd}
 			socket.emit('createCircleClicked',data);
-		  	
 		}
 
 		//Client Confirmaiton on Add circle
@@ -132,28 +145,6 @@
     		M.Modal.getInstance(modal).close();
     		addForm.reset();
 		})
-
-		//send message on loginUser
-		function login(e){
-			e.preventDefault();
-			const loginForm = document.querySelector('#login-form');
-			const emailVal= loginForm['login-email'].value;
-			const passwordVal = loginForm['login-password'].value;
-			var data = {email: emailVal, password: passwordVal}
-			
-			socket.emit('loginUser',data);
-		}
-
-		//Client Confirmaiton on LoginUser
-		socket.on('userLoginSuccess', function() {
-			console.log("Login Success")
-			const loginForm = document.querySelector('#login-form');
-			const modal = document.querySelector('#modal-login');
-    		M.Modal.getInstance(modal).close();
-    		loginForm.reset();
-		})
-
-
 
 	</script>
 
@@ -193,8 +184,5 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script src="/auth.js"></script>
 		<script src="/index.js"></script>
-
-
-
 	</body>
 	</html>
