@@ -51,9 +51,8 @@ io.on('connection', function(client) {
 		  var users = JSON.stringify(userArr);
 	
 	    usersRef.set({
-        randomID: {
+        [randomID]: {
           circle_name: data.circle,
-          // need to make each user probs an independent
           circle_partipants: users
         }
     });
