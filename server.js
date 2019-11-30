@@ -1,3 +1,4 @@
+
 // server.js
 var express = require('express');  
 var app = express();  
@@ -15,6 +16,7 @@ app.get('/', function(req, res,next) {
     res.sendFile(__dirname + '/index.html');
 });
 
+
 var admin = require("firebase-admin");
 var firebase = require('firebase');
 var serviceAccount = require("./serviceAccountKey.json");
@@ -28,37 +30,8 @@ var db = firebase.database();
 var users = db.ref("users");
 var circles = db.ref("Circles");
 
-circles.once("value", function(snapshot) {
-  console.log(snapshot.val());
-});
-
-
-//Userbase Ref
-let userbase = new Object();
-
-function handleLogin(username) {
-	if ((userbase[String(username)]) == null) {
-		userbase[String(username)] = username;
-		update(username);
-		console.log(userbase);
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function update(username) {
-  db.ref("users/" + username).set({
-    username: username
-  });
-}
 
 io.on('connection', function(client) { 
-	client.on('login', function(username) {
-	  console.log("Aalskdjfal;ksdjfl;aksdjfSdf");
-	  let ret = handleLogin(username);
-	  io.emit(String(username), ret);
-	});
 	
 	//Need to make a function to see what changes occured since they were gone and update their fields
 	
@@ -71,8 +44,6 @@ io.on('connection', function(client) {
 	  	var randomID = '_' + Math.random().toString(36).substr(2, 9);
 		  var userArr = data.usersAdd.replace(/\s/g,'').split(',');
 		  var users = JSON.stringify(userArr);
-
-		  // need to check if users are valid or not
 	
 		circlesRef.set({
         [randomID]: {
@@ -80,9 +51,8 @@ io.on('connection', function(client) {
           circle_partipants: users
         }
     });
-
         client.emit('createCircleSuccess')
+	});
+	
 
-    });
-    
 });
