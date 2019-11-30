@@ -1,20 +1,23 @@
+var socket = io.connect();
+var loggedIn = false;
+var userID = null;
 // signup
 const signupForm = document.querySelector('#signup-form');
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault();
   
-  // get user info
-  const email = signupForm['signup-email'].value;
-  const password = signupForm['signup-password'].value;
+// get user info
+const email = signupForm['signup-email'].value;
+const password = signupForm['signup-password'].value;
 
-  // sign up the user
+// sign up the user
   
-  firebase.auth().createUserWithEmailAndPassword(email, password).then(cred => {
-    // close the signup modal & reset form
-    const modal = document.querySelector('#modal-signup');
-    M.Modal.getInstance(modal).close();
-    signupForm.reset();
-
+firebase.auth().createUserWithEmailAndPassword(email, password).then(cred => {
+// close the signup modal & reset form
+	const modal = document.querySelector('#modal-signup');
+	M.Modal.getInstance(modal).close();
+	signupForm.reset();
+    
   });
 });
 
@@ -24,6 +27,10 @@ logout.addEventListener('click', (e) => {
   e.preventDefault();
   firebase.auth().signOut().then(() => {
     console.log('user signed out');
+    loggedIn = false;
+
+
+
   })
 });
 
@@ -38,10 +45,19 @@ loginForm.addEventListener('submit', (e) => {
 
   // log the user in
   firebase.auth().signInWithEmailAndPassword(email, password).then((cred) => {
-    console.log(cred.user);
     // close the signup modal & reset form
     const modal = document.querySelector('#modal-login');
     M.Modal.getInstance(modal).close();
     loginForm.reset();
+    userID = email;
+    console.log(userID)
+    loggedIn = true;
+
+  
+	
+	
+
   });
 });
+
+

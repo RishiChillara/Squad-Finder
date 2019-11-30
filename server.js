@@ -1,4 +1,3 @@
-
 // server.js
 var express = require('express');  
 var app = express();  
@@ -32,11 +31,9 @@ var circles = db.ref("Circles");
 
 
 io.on('connection', function(client) { 
-	
-	//Need to make a function to see what changes occured since they were gone and update their fields
-	
-	console.log('Client connected...'); 
 
+  console.log('Client connected...'); 
+  
     client.on('createCircleClicked', function(data) {
 
       var circlesRef = circles.child("CirclesInfo");
@@ -52,7 +49,10 @@ io.on('connection', function(client) {
         }
     });
         client.emit('createCircleSuccess')
-	});
+  });
+  
+
+  
 	
 
 });
