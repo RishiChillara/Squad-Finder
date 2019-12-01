@@ -40,7 +40,7 @@ io.on('connection', function(client) {
 		var userArr = data.usersAdd.replace(/\s/g,'').split(',');
 		var users = JSON.stringify(userArr);
 
-		circles.set({
+		circles.update({
 			[randomID]: {
 			circle_name: data.circle,
 			circle_partipants: users
@@ -54,7 +54,7 @@ io.on('connection', function(client) {
 
 		// add circle members 
 		for(var i = 0; i < userArr.length;i++) {
-			
+
 			var userIDtoAdd = userArr[i].substring(0,userArr[i].indexOf("@"))
 			usersRef.child(userIDtoAdd).update({circles: data.circle})
 
@@ -68,7 +68,7 @@ io.on('connection', function(client) {
 		var i = data.userName.indexOf("@");
 		var userID = data.userName.substring(0,i)
 		
-		usersRef.set({
+		usersRef.update({
 		[userID]: {
 			lat: data.lat,
 			long: data.lng
