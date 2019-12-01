@@ -1,4 +1,3 @@
-var socket = io.connect();
 var loggedIn = false;
 var userID = null;
 // signup
@@ -29,8 +28,6 @@ logout.addEventListener('click', (e) => {
     console.log('user signed out');
     loggedIn = false;
 
-
-
   })
 });
 
@@ -52,10 +49,6 @@ loginForm.addEventListener('submit', (e) => {
     userID = email;
     console.log(userID)
     loggedIn = true;
-
-  
-	
-	
 
   });
 });

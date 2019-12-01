@@ -9,18 +9,25 @@ document.addEventListener('DOMContentLoaded', function() {
    
   });
 
+  var socket = io.connect();
 
   // SOCKETS
 socket.on('connect', function() {
+
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
-
 			if (navigator.geolocation) {
+
 				navigator.geolocation.getCurrentPosition(function(position) {
-				var pos = {
+				
+				data = {
+					userName: user.email,
 					lat: position.coords.latitude,
-					lng: position.coords.longitude
-				};
+					lng: position.coords.longitude 
+				}
+			
+				socket.emit('updatePosition',data);	
+
 				});
 			}
 
@@ -64,8 +71,18 @@ socket.on('connect', function() {
 		const addForm = document.querySelector('#addCircles-form');
 		const circleName = addForm['circlename'].value;
 		const userstooAdd = addForm['users-add'].value;
-		var data = {circle: circleName, usersAdd: userstooAdd}
-		socket.emit('createCircleClicked',data);
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				var data = {
+					userName: user.email,
+					circle: circleName, 
+					usersAdd: userstooAdd}
+				socket.emit('createCircleClicked',data);
+			} else {
+			  // No user is signed in.
+			}
+		  });
+		
 	}
 
 	//Client Confirmaiton on Add circle
@@ -75,4 +92,8 @@ socket.on('connect', function() {
 		const modal = document.querySelector('#modal-addcircles');
 		M.Modal.getInstance(modal).close();
 		addForm.reset();
+	})
+
+	socket.on('locationUpdateSuccess',function() {
+		console.log("location updated")
 	})
