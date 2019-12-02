@@ -9,15 +9,57 @@ document.addEventListener('DOMContentLoaded', function() {
    
   });
 
-  var socket = io.connect();
+ 
+		var map, infoWindow;
+		
+		function initMap() {
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: -34.397, lng: 150.644},
+			zoom: 17
+		});
+		infoWindow = new google.maps.InfoWindow;
 
-  // SOCKETS
-socket.on('connect', function() {
+		// Try HTML5 geolocation.
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+			var pos = {
+				lat: position.coords.latitude,
+				lng: position.coords.longitude
+			};
 
+		
+			infoWindow.setPosition(pos);
+			infoWindow.setContent('Your Location');
+			infoWindow.open(map);
+
+			map.setCenter(pos);
+			}, function() {
+			handleLocationError(true, infoWindow, map.getCenter());
+			});
+		} else {
+			// Browser doesn't support Geolocation
+			handleLocationError(false, infoWindow, map.getCenter());
+		}
+		}
+
+		function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+		infoWindow.setPosition(pos);
+		infoWindow.setContent(browserHasGeolocation ?
+								'Error: The Geolocation service failed.' :
+								'Error: Your browser doesn\'t support geolocation.');
+		infoWindow.open(map);
+		}
+
+
+	var socket = io.connect();
+
+	// SOCKETS
+	socket.on('connect', function() {
 
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
 			if (navigator.geolocation) {
+
 				navigator.geolocation.getCurrentPosition(function(position) {
 
 				data = {
@@ -25,12 +67,11 @@ socket.on('connect', function() {
 					lat: position.coords.latitude,
 					lng: position.coords.longitude 
 				}
+
 				socket.emit('updatePosition',data);	
 
 				});
 			}
-
-
 
 			var logoutelem = document.getElementsByClassName('logged-out');
 
@@ -87,9 +128,6 @@ socket.on('connect', function() {
 
 	function createMeeting(e){
 		e.preventDefault();
-
-	
-
 		firebase.auth().onAuthStateChanged(function(user) {
 			if (user) {
 				var data = {
@@ -109,8 +147,29 @@ socket.on('connect', function() {
 		const modal = document.querySelector('#modal-addcircles');
 		M.Modal.getInstance(modal).close();
 		addForm.reset();
-		
 		document.getElementById("circleCreateEvent").innerHTML = "Circle: " + data.circle_name;
+
+		var myLatLng = {lat: 40.428311, lng: -86.922436};
+			var marker = new google.maps.Marker({
+				position: myLatLng,
+				map: map,
+				title: 'Hello World!'
+			  });
+
+			  var myLatLng = {lat: 40.427777, lng: -86.916951};
+			var marker = new google.maps.Marker({
+				position: myLatLng,
+				map: map,
+				title: 'Hello World!'
+			  });
+
+			  var myLatLng2 = {lat: 40.428404, lng: -86.912907};
+			var marker1 = new google.maps.Marker({
+				position: myLatLng2,
+				map: map,
+				title: 'Hello World!'
+			  });
+
 
 	})
 
@@ -124,3 +183,5 @@ socket.on('connect', function() {
 		document.getElementById("result").innerHTML = "Meet up at " + data.result;
 
 	})
+
+	
