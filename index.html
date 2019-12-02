@@ -36,6 +36,9 @@
 			<a href="#" class="grey-text modal-trigger" id = "userName" data-target="modal-account">Account</a>
 			</li>
 			<li class="logged-in">
+				<a href="#" class="grey-text modal-trigger" data-target="modal-createEvent">Create Event</a>
+				</li>
+			<li class="logged-in">
 			<a href="#" class="grey-text modal-trigger" data-target="modal-addcircles">Add Circles</a>
 			</li>
 			<li class="logged-in">
@@ -117,6 +120,23 @@
 		</div>
 		</div>
 
+	<!------ CREATE EVENT MODAL ------------------------------------------------------------------------------------------------>
+
+	<div id="modal-createEvent" class="modal">
+		<div class="modal-content">
+			<h4>Create Event</h4><br />
+			<h6 id = "circleCreateEvent">Circle Name</h6>
+			<form id="createEvent-form">
+			<div class="input-field">
+				<input type="text" id="activityType" required />
+				<label for="activityType">What would you like to do (eat, study, fun)?</label>
+			</div>
+			<h6 id = "result"></h6><br />
+
+			<button onclick = "createMeeting(event)" class="btn yellow darken-2 z-depth-0">Create Hangout</button>
+			</form>
+		</div>
+		</div>
 
 
 	<!-- ACCOUNT MODAL -------------------------------------------------------------------------------------------------------->

@@ -14,22 +14,22 @@ document.addEventListener('DOMContentLoaded', function() {
   // SOCKETS
 socket.on('connect', function() {
 
+
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
 			if (navigator.geolocation) {
-
 				navigator.geolocation.getCurrentPosition(function(position) {
-				
+
 				data = {
 					userName: user.email,
 					lat: position.coords.latitude,
 					lng: position.coords.longitude 
 				}
-			
 				socket.emit('updatePosition',data);	
 
 				});
 			}
+
 
 
 			var logoutelem = document.getElementsByClassName('logged-out');
@@ -44,7 +44,7 @@ socket.on('connect', function() {
 				loginelem[i].style.display = 'block';
 			}
 
-				document.getElementById("userName").innerHTML = user.email;	
+			document.getElementById("userName").innerHTML = user.email;	
 
 		} else {
 
@@ -85,15 +85,42 @@ socket.on('connect', function() {
 		
 	}
 
+	function createMeeting(e){
+		e.preventDefault();
+
+	
+
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				var data = {
+					userName: user.email}
+
+				socket.emit('createEventClicked',data);
+			} 
+		  });
+		
+	}
+
 	//Client Confirmaiton on Add circle
-	socket.on('createCircleSuccess', function() {
+	socket.on('createCircleSuccess', function(data) {
 		console.log("Circle Made")
+		console.log(data);
 		const addForm = document.querySelector('#addCircles-form');
 		const modal = document.querySelector('#modal-addcircles');
 		M.Modal.getInstance(modal).close();
 		addForm.reset();
+		
+		document.getElementById("circleCreateEvent").innerHTML = "Circle: " + data.circle_name;
+
 	})
 
 	socket.on('locationUpdateSuccess',function() {
 		console.log("location updated")
+
+
+	})
+
+	socket.on("resultMade",function(data) {
+		document.getElementById("result").innerHTML = "Meet up at " + data.result;
+
 	})
