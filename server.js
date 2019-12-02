@@ -213,8 +213,13 @@ io.on('connection', function(client) {
 		}
 
 		if(userLocations.length != 0){
-		var final = findStudyCenter(findAverage(userLocations),locations);
-		console.log(final);
+			var final;
+			if(data.actType == "eat"){
+			final = new Location("Windsor Dining Hall", 0, 0);
+			} else {
+			final = findStudyCenter(findAverage(userLocations),locations);
+			}
+		console.log(final.name);
 		client.emit("resultMade",{'result': final.name})
 
 

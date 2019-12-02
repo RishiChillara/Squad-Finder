@@ -129,9 +129,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	function createMeeting(e){
 		e.preventDefault();
 		firebase.auth().onAuthStateChanged(function(user) {
+		const addForm = document.querySelector('#createEvent-form');
+		const type = addForm['activityType'].value;
+
+
 			if (user) {
 				var data = {
-					userName: user.email}
+					userName: user.email,
+				actType: type}
 
 				socket.emit('createEventClicked',data);
 			} 
