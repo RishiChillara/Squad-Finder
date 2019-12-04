@@ -1,17 +1,17 @@
 // server.js
-var express = require('express');  
-var app = express();  
-var server = require('http').createServer(app); 
-var io = require('socket.io')(server); 
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
 //start our web server and socket.io server listening
 server.listen(3000, function(){
   console.log('listening on *:3000');
-}); 
+});
 
-app.use(express.static(__dirname)); 
+app.use(express.static(__dirname));
 //redirect / to our index.html file
-app.get('/', function(req, res,next) {  
+app.get('/', function(req, res,next) {
     res.sendFile(__dirname + '/index.html');
 });
 
@@ -30,10 +30,10 @@ var usersRef = db.ref("users");
 var circlesRef = db.ref("Circles");
 
 
-io.on('connection', function(client) { 
+io.on('connection', function(client) {
 
-  console.log('Client connected...'); 
-  
+  console.log('Client connected...');
+
     client.on('createCircleClicked', function(data) {
 		//create circle
 		var userArr = data.usersAdd.replace(/\s/g,'').split(',');
@@ -51,7 +51,7 @@ io.on('connection', function(client) {
 		var userID = data.userName.substring(0,i)
 		usersRef.child(userID).update({circles: data.circle})
 
-		// add circle members 
+		// add circle members
 		for(var i = 0; i < userArr.length;i++) {
 
 			var userIDtoAdd = userArr[i].substring(0,userArr[i].indexOf("@"))
@@ -62,7 +62,7 @@ io.on('connection', function(client) {
 		client.emit('createCircleSuccess',{'circle_name' : data.circle})
 
   });
-  
+
 
   client.on('updatePosition',function(data){
 
@@ -96,9 +96,9 @@ io.on('connection', function(client) {
 
 		var locations = [];
 
+    locations.push(hicks);
 		locations.push(walc);
 		locations.push(krach);
-		locations.push(hicks);
 		locations.push(wlpl);
 		locations.push(star);
 
@@ -114,13 +114,13 @@ io.on('connection', function(client) {
 			usersRef.child(ID + "/lat").on("value", function(snapshot) {
 				var lat = snapshot.val();
 				lats.push(lat);
-			
-				
+
+
 			});
 		}
 
 		function getLong(ID) {
-	
+
 			usersRef.child(ID + "/long").on("value",function(snapshot) {
 				var long = snapshot.val();
 				longs.push(long);
@@ -140,9 +140,9 @@ io.on('connection', function(client) {
 				var eventParticpants = snapshot.val().circle_partipants;
 				var obj = JSON.parse(eventParticpants);
 
-			
+
 				for(var c = 0; c < obj.length; c++) {
-					
+
 					var ID = obj[c].substring(0,obj[c].indexOf("@"));
 
 					getLat(ID);
@@ -164,39 +164,39 @@ io.on('connection', function(client) {
 			var longitudeSum = 0;
 		   var latTitArray = []
 		   var longTitArray = []
-	
-	
+
+
 		   for(var x = 0; x < userLocations.length; x++){
 			   latTitArray[x] = userLocations[x].lat;
 			   longTitArray[x] = userLocations[x].long;
 		   }
-	
+
 		   for(var i = 0; i <  userLocations.length; i++){
 			   latitudeSum = latTitArray[i] + latitudeSum;
 			   longitudeSum = longTitArray[i] + longitudeSum;
 		   }
-	
+
 		   var latAvg = (latitudeSum/userLocations.length);
 		   var longAvg = (longitudeSum/userLocations.length);
-	
-	
+
+
 		var result = new Location("result",latAvg,longAvg);
-	
+
 		return result;
-	
-	
+
+
 		}
-		
+
 		function findStudyCenter(result, locations){
 
 			var distances = [];
 			var cLat = result.lat;
 			var cLong = result.long;
 			for (var i=0; i<locations.length; i++){
-	
+
 				var sLat = (locations[i].lat);
 				var sLong = (locations[i].long);
-	
+
 				var d = Math.sqrt(Math.pow((cLat-sLat),2)+Math.pow((cLong-sLong),2));
 				distances[i]=d;
 			}
@@ -225,8 +225,8 @@ io.on('connection', function(client) {
 
 		}
 
-		 
-		
+
+
 	});
 
 

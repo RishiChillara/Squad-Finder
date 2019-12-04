@@ -154,25 +154,25 @@ document.addEventListener('DOMContentLoaded', function() {
 		addForm.reset();
 		document.getElementById("circleCreateEvent").innerHTML = "Circle: " + data.circle_name;
 
-		var myLatLng = {lat: 40.428311, lng: -86.922436};
+		var myLatLng = {lat: 40.425008, lng: -86.912764}; //HICKS
 			var marker = new google.maps.Marker({
 				position: myLatLng,
 				map: map,
-				title: 'Hello World!'
+				title: 'Safi Q'
 			  });
 
-			  var myLatLng = {lat: 40.427777, lng: -86.916951};
+			  var myLatLng = {lat: 40.427777, lng: -86.916951}; //Lawson
 			var marker = new google.maps.Marker({
 				position: myLatLng,
 				map: map,
-				title: 'Hello World!'
+				title: 'Andy Yoo'
 			  });
 
 			  var myLatLng2 = {lat: 40.428404, lng: -86.912907};
 			var marker1 = new google.maps.Marker({
 				position: myLatLng2,
 				map: map,
-				title: 'Hello World!'
+				title: 'Advait M'
 			  });
 
 
