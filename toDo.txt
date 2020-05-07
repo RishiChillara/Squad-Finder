@@ -1,0 +1,43 @@
+*NOTE: When you start working on ANYTHING, move the story to the appropriate field*
+
+Server Side:
+  Story:
+    
+    User Management Functions
+    Circle Functionality
+    Circle Management Functions
+    Event Creation
+    Event Management Functions
+    
+    Event Management
+
+  In Progress:
+  Firebase Integration
+  WebSocket Linking
+  Basic Server
+  User Data Base
+  Account Functionality
+
+  Testing:
+
+  Bugs:
+
+  Released:
+
+Client Side:
+  Story:
+    Basic Client
+    Data Polling
+    User Management Functions
+    Circle Management Functions
+    Event Adding Functions
+    WebSocket Linking
+    Event Management
+
+  In Progress:
+
+  Testing:
+
+  Bugs:
+
+  Released:

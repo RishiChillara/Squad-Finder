@@ -1,0 +1,14 @@
+{
+    "name": "socket-chat-example",
+    "version": "0.0.1",
+    "description": "my first socket.io app",
+    "dependencies": {
+        "express": "^4.17.1",
+        "firebase-admin": "^8.7.0",
+        "nodemon": "^2.0.1",
+        "socket.io": "^2.3.0"
+    },
+    "devDependencies": {
+        "firebase": "^7.2.3"
+    }
+}

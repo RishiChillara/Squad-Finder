@@ -1,0 +1,202 @@
+
+<html lang="en">
+	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	  <!-- Compiled and minified CSS ------------------------------------------------------------------------------------------>
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	  <title>Squad Finder</title>
+	  
+	  <style>
+			/* Always set the map height explicitly to define the size of the div
+			 * element that contains the map. */
+			#map {
+			  height: 100%;
+			}
+			
+		  </style>
+	</head>
+
+	<body class="grey lighten-3">
+
+	
+
+			
+
+	<!-- NAVBAR ------------------------------------------------------------------------------------------------------------->
+	
+	<nav class="z-depth-0 grey lighten-4">
+	<div class="nav-wrapper container">
+		<a href="#" class="brand-logo">
+		<!--<img src="img/logo.jpg" style="width: 180px; margin-top: 10px;"> -->
+		</a>
+		<ul id="nav-mobile" class="right hide-on-med-and-down">
+			<li class="logged-in">
+			<a href="#" class="grey-text modal-trigger" id = "userName" data-target="modal-account">Account</a>
+			</li>
+			<li class="logged-in">
+				<a href="#" class="grey-text modal-trigger" data-target="modal-createEvent">Create Event</a>
+				</li>
+			<li class="logged-in">
+			<a href="#" class="grey-text modal-trigger" data-target="modal-addcircles">Add Circles</a>
+			</li>
+			<li class="logged-in">
+			<a href="#" class="grey-text" id="logout">Logout</a>
+			</li>
+			<li class="logged-out">
+			<a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
+			</li>
+			<li class="logged-out">
+			<a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
+			</li>
+		</span>
+		</ul>
+	</div>
+	</nav>
+
+	<script>
+		
+	var logoutelem = document.getElementsByClassName('logged-in');
+    
+	for (var i = 0; i < logoutelem.length; i ++) {
+	  logoutelem[i].style.display = 'none';
+	}
+	</script>
+
+	
+	<!-- SIGN UP MODAL ------------------------------------------------------------------------------------------------------->
+	<div id="modal-signup" class="modal">
+	<div class="modal-content">
+		<h4>Sign up</h4><br />
+		<form id="signup-form">
+		<div class="input-field">
+			<input type="email" id="signup-email" required />
+			<label for="signup-email">Email address</label>
+		</div>
+		<div class="input-field">
+			<input type="password" id="signup-password" required />
+			<label for="signup-password">Choose password</label>
+		</div>
+		<button class="btn yellow darken-2 z-depth-0">Sign up</button>
+		</form>
+	</div>
+	</div>
+
+	<!-- LOGIN MODAL ---------------------------------------------------------------------------------------------------------->
+	<div id="modal-login" class="modal">
+	<div class="modal-content">
+		<h4>Login</h4><br />
+		<form id="login-form">
+		<div class="input-field">
+			<input type="email" id="login-email" required />
+			<label for="login-email">Email address</label>
+		</div>
+		<div class="input-field">
+			<input type="password" id="login-password" required />
+			<label for="login-password">Your password</label>
+		</div>
+		<button class="btn yellow darken-2 z-depth-0">Login</button>
+		</form>
+	</div>
+	</div>
+
+	<!------ ADD CIRCLES MODAL ------------------------------------------------------------------------------------------------>
+
+	<div id="modal-addcircles" class="modal">
+		<div class="modal-content">
+			<h4>Create a Circle and Add Members</h4><br />
+			<form id="addCircles-form">
+			<div class="input-field">
+				<input type="text" id="circlename" required />
+				<label for="circlename">Circle Name</label>
+			</div>
+			<div class="input-field">
+				<input type="text" id="users-add" required />
+				<label for="users-add">Add all emails with commas seperating their names</label>
+			</div>
+			<button onclick = "addCircles(event)" class="btn yellow darken-2 z-depth-0">Add Circles</button>
+			</form>
+		</div>
+		</div>
+
+	<!------ CREATE EVENT MODAL ------------------------------------------------------------------------------------------------>
+
+	<div id="modal-createEvent" class="modal">
+		<div class="modal-content">
+			<h4>Create Event</h4><br />
+			<h6 id = "circleCreateEvent">Circle Name</h6>
+			<form id="createEvent-form">
+			<div class="input-field">
+				<input type="text" id="activityType" required />
+				<label for="activityType">What would you like to do (eat, study, fun)?</label>
+			</div>
+			<h6 id = "result"></h6><br />
+
+			<button onclick = "createMeeting(event)" class="btn yellow darken-2 z-depth-0">Create Hangout</button>
+			</form>
+		</div>
+		</div>
+
+
+	<!-- ACCOUNT MODAL -------------------------------------------------------------------------------------------------------->
+
+
+	<div id="modal-account" class="modal">
+	<div class="modal-content center-align">
+		<h4>Account details</h4><br />
+		<div class="account-details"></div>
+		<div class="account-extras"></div>
+	</div>
+	</div>
+
+
+
+<!-----------MAP SCREEN------------------------------------------------------------------------------------------------------->
+
+		<div id="map"></div>
+		
+		<script async defer
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbPEhc_8YVOZwB8YuPRbIx1IaWofB7HUI&callback=initMap">
+		</script>
+
+	<!----FIREBASE------------------------------------------------------------------------------------------------------------>
+
+
+	<script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
+	<script defer src="https://www.gstatic.com/firebasejs/7.2.1/firebase-auth.js"></script>
+	<script defer src="https://www.gstatic.com/firebasejs/7.2.1/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-analytics.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+
+
+	<script>
+	// Your web app's Firebase configuration
+	var firebaseConfig = {
+    apiKey: "AIzaSyAbPEhc_8YVOZwB8YuPRbIx1IaWofB7HUI",
+    authDomain: "launchpad-f189d.firebaseapp.com",
+    databaseURL: "https://launchpad-f189d.firebaseio.com",
+    projectId: "launchpad-f189d",
+    storageBucket: "launchpad-f189d.appspot.com",
+    messagingSenderId: "840926745535",
+    appId: "1:840926745535:web:02565c1b66eb6bc530470a",
+    measurementId: "G-7T9YSWLBJC"
+  };
+
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+	firebase.analytics();
+
+
+	</script>
+
+
+<!-------- Compiled and minified JavaScript ----------------------------------------------------------------------------------->
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+		<script src="/auth.js"></script>
+		<script src="/index.js"></script>
+
+	</body>
+	</html>
