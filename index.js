@@ -154,14 +154,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		addForm.reset();
 		document.getElementById("circleCreateEvent").innerHTML = "Circle: " + data.circle_name;
 
-		var myLatLng = {lat: 40.425008, lng: -86.912764}; //HICKS
+		var myLatLng = {lat: 40.425008, lng: -86.912764}; //HICKS Undergraduate Library
 			var marker = new google.maps.Marker({
 				position: myLatLng,
 				map: map,
 				title: 'Safi Q'
 			  });
 
-			  var myLatLng = {lat: 40.427777, lng: -86.916951}; //Lawson
+			  var myLatLng = {lat: 40.427777, lng: -86.916951}; //Lawson Computer Science Building
 			var marker = new google.maps.Marker({
 				position: myLatLng,
 				map: map,
@@ -173,6 +173,12 @@ document.addEventListener('DOMContentLoaded', function() {
 				position: myLatLng2,
 				map: map,
 				title: 'Advait M'
+			  });
+			  var myLatLng3 = {lat: 40.428544, lng: -86.920816};
+			var marker2 = new google.maps.Marker({
+				position: myLatLng3,
+				map: map,
+				title: 'Isha S'
 			  });
 
 
